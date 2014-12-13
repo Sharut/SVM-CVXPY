@@ -7,4 +7,4 @@ You don't need to be a CVXPY expert to use this, but make sure that the CVXPY is
 http://www.cvxpy.org/en/latest/install/index.html
 
 Current: Basic SVM
-if weighted == True: weighted SVM
+if weighted == True: the svm will change the distances of the two margins to decision boundary

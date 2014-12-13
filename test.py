@@ -27,14 +27,14 @@ for k in xrange(N_test):
 		X_test.append([1+random.randn()*0.5,1*random.randn()*0.5])
 		Y_test.append([1])
 
-s = svm(2+1)
+s = svm(2+1,weighted = True)
 
 s.train(X,Y)
 
 Y_pre = s.predict(X_test)
 
-for k in xrange(len(Y_pre)):
-	print Y_test[k][0]-Y_pre[k][0]
+#for k in xrange(len(Y_pre)):
+#	print Y_test[k][0]-Y_pre[k][0]
 
 
 
