@@ -27,9 +27,9 @@ for k in xrange(N_test):
 		X_test.append([1+random.randn()*0.5,1*random.randn()*0.5])
 		Y_test.append([1])
 
-s = svm(2+1,weighted = True)
+s = svm(2+1,weighted = False)
 
-s.train(X,Y)
+s.train(X,Y,0.1)
 
 Y_pre = s.predict(X_test)
 

@@ -11,7 +11,7 @@ class svm(object):
 		self.ready = False
 		self.weighted = weighted
 
-	def train(self,X,Y):
+	def train(self,X,Y,C):
 		
 		if len(X) != len(Y):
 			print 'Error: the numbers of inputs and outputs donot match!'
@@ -39,17 +39,22 @@ class svm(object):
 				
 		A = numpy.matrix(A)
 		M,N = A.shape
-		Y = numpy.matrix([[1]]*M)
+		y = numpy.matrix([[1]]*M)
 		x = Variable(N)
-		objective  = Minimize(sum_entries(square(x)))
-		constraints = [Y <= A*x]
+		Y = numpy.array(Y)
+		Epsilon = Variable(M) # punishing factor
+		objective  = Minimize(sum_entries(square(x))+C*sum_entries(square(Epsilon)))
+		#constraints = [numpy.multiply(Y,(1-Epsilon)) <= A*x]
+		constraints = [y <= A*x+numpy.diag(Y)*Epsilon]
+		
+		#print type(numpy.multiply(Y,(1-Epsilon)))
+		#print type(x),type(Y), type(Epsilon)
 		prob = Problem(objective,constraints)
 		prob.solve()
 		if prob.status == OPTIMAL:
 			print 'training completed'
 		#print x.value
 			self.W = numpy.matrix(x.value)
-		
 			self.ready = True
 		else:
 			print 'training not completed'
